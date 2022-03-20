@@ -1,23 +1,22 @@
-import logo from './logo.svg';
-import './App.css';
+import {useState} from 'react';
+import Form from './components/Form';
+import Lista from './components/Lista';
+import Pomodoro from './components/pomodoro/Pomodoro';
 
-function App() {
+
+function App() {  
+  const [lista, setLista] = useState(JSON.parse(localStorage.getItem('lista')) || []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="container mx-auto">
+      <div className="flex flex-row">
+        <Pomodoro />
+        <div className="flex-grow">
+
+          <Form lista={lista} setListaProps={setLista}/>
+          <Lista lista={lista} setListaProps={setLista}/>    
+        </div>
+      </div>
     </div>
   );
 }
