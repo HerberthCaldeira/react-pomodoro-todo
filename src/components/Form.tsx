@@ -1,7 +1,19 @@
-import { useEffect, useReducer } from 'react'
+import React, { useEffect, useReducer } from 'react'
 import ModalConfirm from './ModalConfirm'
+import { IListaProps } from '../App'
 
-const initialStates = {
+interface IInitialStates {
+    todo: string;
+    error: { 
+        isValid: null | boolean;
+        title: string;
+        message: string;
+    }
+}
+
+type IAction = | {type: 'RESET'} | {type: 'HANDLE_CHANGE', value: string} | {type: 'CHECK_VALIDATION', value: string}
+
+const initialStates:IInitialStates = {
     todo: '',
     error: { 
         isValid: null,
@@ -10,33 +22,35 @@ const initialStates = {
     }
 }
 
-const todoReducerFn = (state, action) => {
+const todoReducerFn = (state: IInitialStates, action: IAction): IInitialStates => {
 
-    if (action.type === 'RESET'){
-        return { ...initialStates }
-    } 
+    switch(action.type){
+        case 'RESET':
+            return { ...initialStates }
 
-    if (action.type === 'HANDLE_CHANGE'){
-        return {...state, todo: action.value}
-    } 
-
-    if (action.type === 'CHECK_VALIDATION'){
-        
-        return { 
-            ...state,
-            error:
-            {
-                isValid: action.value.trim().length === 0 ? false : true ,
-                title: action.value.trim().length === 0 ? 'Error' : '',
-                message: action.value.trim().length === 0 ? 'Empty field': '',
+        case 'HANDLE_CHANGE':
+            return {...state, todo: action.value}
+        case 'CHECK_VALIDATION':
+            return { 
+                ...state,
+                error:
+                {
+                    isValid: action.value.trim().length === 0 ? false : true ,
+                    title: action.value.trim().length === 0 ? 'Error' : '',
+                    message: action.value.trim().length === 0 ? 'Empty field': '',
+                }
             }
-        }
-                  
-    } 
+        default:
+            return initialStates;
+
+
+    }
+
+
 
 }
 
-const Form = (props) => {
+const Form = (props: IListaProps) => {
 
     const [todoReducer, todoReducerDispatch] = useReducer(todoReducerFn, initialStates);
     const { isValid } = todoReducer.error
@@ -65,11 +79,11 @@ const Form = (props) => {
     },[props.lista])
   
 
-    const handleChange = (e) => {  
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {  
         todoReducerDispatch({ type:'HANDLE_CHANGE', value: e.target.value});
     }
 
-    const handleSubmit = (e) => {      
+    const handleSubmit = (e: React.FormEvent) => {      
         e.preventDefault();
         todoReducerDispatch({type:'CHECK_VALIDATION', value: todoReducer.todo })      
     }

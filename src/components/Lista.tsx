@@ -1,6 +1,8 @@
-const Lista = (props) => {
+import { IListaProps } from '../App'
 
-    const handleClick = (todo_id) => {
+const Lista = (props: IListaProps) => {
+
+    const handleClick = (todo_id: number) => {
         let todos = [...props.lista];
         let index = props.lista.findIndex((item) =>{
             return item.id === todo_id;
@@ -9,7 +11,7 @@ const Lista = (props) => {
         props.setListaProps([...todos])
     }
 
-    const handleRemove = (todo_id) => {
+    const handleRemove = (todo_id: number) => {
         let todos = [...props.lista];
         let newTodos = todos.filter(( item ) => {
             return item.id !== todo_id;
@@ -31,12 +33,8 @@ const Lista = (props) => {
                 hover:text-blue-300
                 `}               
                 onClick={ () =>  handleClick(item.id)  }
-                >
-                    
-                    {item.todo}             
-            
-                    
-                
+                >                    
+                    {item.todo}
                 </div>
 
                 <div className="mt-4 py-2">

@@ -1,9 +1,14 @@
+// @ts-nocheck
 import './style.css'
+interface IDisplayProps {
+    timeLeft: number,
+    clockColor: string
+}
 
-const Display = (props) => {
+const Display = ( props: IDisplayProps ) => {
 
 
-    const secToTime = (sec) => {
+    const secToTime = (sec) => { 
         var pad = function(num, size) { return ('000' + num).slice(size * -1); }
         let time = parseFloat(sec).toFixed(3);
         let hours = Math.floor(time / 60 / 60);

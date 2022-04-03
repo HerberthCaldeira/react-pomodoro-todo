@@ -3,9 +3,21 @@ import Form from './components/Form';
 import Lista from './components/Lista';
 import Pomodoro from './components/pomodoro/Pomodoro';
 
+export interface IStateLista {
+  lista: {
+    id: number,
+    status:boolean,
+    todo: string
+  }[]
+}
 
-function App() {  
-  const [lista, setLista] = useState(JSON.parse(localStorage.getItem('lista')) || []);
+export interface IListaProps {
+  lista: IStateLista['lista'],
+  setListaProps: React.Dispatch<React.SetStateAction<IStateLista['lista']>>
+}
+
+const App = () => {  
+  const [lista, setLista] = useState<IStateLista['lista'] >( JSON.parse(localStorage.getItem('lista') || '[]' ));
 
   return (
     <div className="container mx-auto">

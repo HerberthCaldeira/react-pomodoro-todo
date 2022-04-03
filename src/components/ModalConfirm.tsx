@@ -1,5 +1,10 @@
+interface IModalConfirmProps {
+    title: string;
+    message: string;
+    onConfirm: () => void;
+}
 
-const ModalConfirm = (props) => {
+const ModalConfirm = (props: IModalConfirmProps) => {
  
     return (
         <>
