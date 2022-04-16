@@ -10,6 +10,7 @@ A to-do list with pomodoro. The goal here was to practice some front-end develop
 * [Create-react-app](https://create-react-app.dev/)
 * [Typescript](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html)
 * [Tailwindcss](https://tailwindcss.com/)
+* [Docker](https://docs.docker.com/engine/reference/commandline/compose/)
 
 
 
